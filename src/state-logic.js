@@ -1,9 +1,11 @@
 import priority from "./priority";
 
 const exampleData = {
+	selectedProjectId: "p1",
 	projects: [
 		{
 			name: "Project 1",
+			id: "p1",
 			todos: [
 				{
 					title: "Todo 1",
@@ -23,6 +25,7 @@ const exampleData = {
 		},
 		{
 			name: "Project 2",
+			id: "p2",
 			todos: [
 				{
 					title: "Todo 3",
@@ -43,44 +46,37 @@ const exampleData = {
 	],
 };
 
-function todoFactory(title, description, dueDate, priority) {
-	const id = Math.random();
+function todoFactory({
+	title,
+	description,
+	dueDate,
+	priority,
+	complete = false,
+	id,
+}) {
 	return {
 		title,
 		description,
 		dueDate,
 		priority,
-		id,
+		complete,
+		id: id ?? crypto.randomUUID(),
 	};
 }
 
-function projectFactory(name, todos = []) {
-	const id = Math.random();
+export function projectFactory({ name, todos = [], id }) {
 	return {
 		name,
-		todos: todos.map((todo) => {
-			todoFactory(todo.title, todo.description, todo.dueDate, todo.priority);
-		}),
-		id,
-		addTodo(title, description, dueDate, priority) {
-			todos.push(todoFactory(title, description, dueDate, priority));
-		},
-		removeTodo(id) {
-			todos = todos.filter((x) => x.id !== id);
-		},
+		id: id ?? crypto.randomUUID(),
+		todos: todos.map(todoFactory),
 	};
 }
 
 function appFactory(data) {
-	const result = {
-		projects: data?.projects.map((project) =>
-			projectFactory(project.name, project.todos),
-		),
-		printState() {
-			console.log(this.projects);
-		},
+	return {
+		projects: data.projects.map(projectFactory),
+		selectedProjectId: data.selectedProjectId ?? data.projects?.[0]?.id ?? null,
 	};
-	return result;
 }
 
 function getAppState() {
@@ -88,7 +84,9 @@ function getAppState() {
 	if (!storageState) {
 		return appFactory(exampleData);
 	}
-	return appFactory(data);
+	return appFactory(JSON.parse(storageState));
 }
 
-export default getAppState;
+const state = getAppState();
+
+export default state;

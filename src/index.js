@@ -1,10 +1,10 @@
 import "./styles.css";
 import ficsitImage from "./images/ficsit.webp";
-import getAppState from "./state-logic";
+import state from "./state-logic";
+import * as mutations from "./state-mutations";
 
+function PopulateTemplateBody() {}
+
+PopulateTemplateBody();
 console.log("Hello, World!");
-const image = document.createElement("img");
-image.src = ficsitImage;
-document.body.appendChild(image);
-const state = getAppState();
 state.printState();
