@@ -67,3 +67,11 @@ footer {
 footer p {
 	color: var(--header-footer-text-color);
 }
+
+.project {
+	color: var(--header-footer-color);
+}
+
+.project[data-highlight="true"] {
+	background-color: black;
+}

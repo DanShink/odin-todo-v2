@@ -2,9 +2,9 @@ export function renderProjects(state) {
 	return state.projects
 		.map(
 			(p) => `
-    <div data-id=${p.id}>
+    <div class="project" data-id="${p.id}" data-highlight="${p.id === state.selectedProjectId}">
       ${p.name}
-    <div>
+    </div>
     `,
 		)
 		.join("");
@@ -15,9 +15,9 @@ export function renderTodos(state) {
 		.find((p) => p.id === state.selectedProjectId)
 		.todos.map(
 			(t) => `
-    <div data-id=${t.id}>
+    <div data-id="${t.id}">
       ${t.title}
-    <div>
+    </div>
     `,
 		)
 		.join("");
