@@ -13,6 +13,7 @@ const exampleData = {
 					dueDate: "01/01/2099",
 					priority: priority.LOW,
 					complete: false,
+					id: 1,
 				},
 				{
 					title: "Todo 2",
@@ -20,6 +21,7 @@ const exampleData = {
 					dueDate: "01/01/3099",
 					priority: priority.MEDIUM,
 					complete: false,
+					id: 2,
 				},
 			],
 		},
@@ -33,6 +35,7 @@ const exampleData = {
 					dueDate: "01/01/2099",
 					priority: priority.HIGH,
 					complete: true,
+					id: 1,
 				},
 				{
 					title: "Todo 4",
@@ -40,6 +43,7 @@ const exampleData = {
 					dueDate: "01/01/3099",
 					priority: priority.URGENT,
 					complete: false,
+					id: 2,
 				},
 			],
 		},
