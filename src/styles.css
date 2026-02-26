@@ -68,11 +68,26 @@ footer p {
 	color: var(--header-footer-text-color);
 }
 
+#projects-container {
+	min-width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	gap: 10px;
+	border: 2px solid gray;
+	padding: 8px;
+}
+
 .project {
 	color: var(--header-footer-color);
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	border: 2px solid gray;
+	padding: 8px;
 }
 
 .projectSelected {
-	background-color: black;
+	background-color: var(--header-footer-color);
+	color: var(--header-footer-text-color);
 }

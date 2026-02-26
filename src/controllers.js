@@ -9,7 +9,7 @@ export function setupProjectsController() {
 			const item = e.target.closest(".project");
 			if (!item) return;
 			const pId = item.getAttribute("data-id");
-			console.log(pId);
+			if (!pId) return;
 			setSelectedProject(pId);
 			renderApp(state);
 		});
