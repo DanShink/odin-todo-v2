@@ -70,8 +70,9 @@ footer p {
 
 .project {
 	color: var(--header-footer-color);
+	cursor: pointer;
 }
 
-.project[data-highlight="true"] {
+.projectSelected {
 	background-color: black;
 }

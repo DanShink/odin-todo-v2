@@ -5,13 +5,13 @@ function findProject(id) {
 }
 
 export function addTodo(projectId, todoData) {
-	const project = findProject(id);
+	const project = findProject(projectId);
 	if (!project) return;
 	project.todos.push(todoFactory(todoData));
 }
 
 export function removeTodo(projectId, todoId) {
-	const project = findProject(id);
+	const project = findProject(projectId);
 	if (!project) return;
 	project.todos = project.todos.filter((t) => t.id !== todoId);
 }
@@ -28,6 +28,10 @@ export function renameProject(id, name) {
 
 export function removeProject(id) {
 	state.projects = state.projects.filter((p) => p.id !== id);
+}
+
+export function setSelectedProject(id) {
+	state.selectedProjectId = id;
 }
 
 export function printState() {

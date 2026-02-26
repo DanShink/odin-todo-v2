@@ -2,7 +2,7 @@ export function renderProjects(state) {
 	return state.projects
 		.map(
 			(p) => `
-    <div class="project" data-id="${p.id}" data-highlight="${p.id === state.selectedProjectId}">
+    <div class="project ${p.id === state.selectedProjectId ? "projectSelected" : ""}" data-id="${p.id}">
       ${p.name}
     </div>
     `,
@@ -16,7 +16,7 @@ export function renderTodos(state) {
 		.todos.map(
 			(t) => `
     <div data-id="${t.id}">
-      ${t.title}
+      ${t.title}: ${t.description}
     </div>
     `,
 		)
