@@ -9,13 +9,28 @@
 		<header><h1>Todo List</h1></header>
 		<div id="app-content">
 			<div id="projects">
-				<h2><u>Projects</u></h2>
+				<h2>
+					<u>Projects</u
+					><button commandfor="add-project-popup" command="show-modal">
+						Add Project
+					</button>
+				</h2>
 				<div id="projects-container"></div>
 			</div>
 			<div id="todos">
-				<h2><u>Todos</u></h2>
+				<h2>
+					<u>Todos</u
+					><button commandfor="add-todo-popup" command="show-modal">
+						Add Todo
+					</button>
+				</h2>
 				<div id="todos-container"></div>
 			</div>
+			<dialog id="add-project-popup"></dialog>
+			<dialog id="add-todo-popup">
+				<p>Add a todo</p>
+				<button commandfor="add-todo-popup" command="close">Close</button>
+			</dialog>
 		</div>
 		<footer><p>Created By Daniel Shinkarow</p></footer>
 	</body>

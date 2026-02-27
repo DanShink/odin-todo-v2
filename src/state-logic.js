@@ -86,6 +86,7 @@ function appFactory(data) {
 function getAppState() {
 	const storageState = localStorage.getItem("appState");
 	if (!storageState) {
+		console.log("notSaved");
 		return appFactory(exampleData);
 	}
 	return appFactory(JSON.parse(storageState));
