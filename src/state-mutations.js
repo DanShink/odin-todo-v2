@@ -28,8 +28,10 @@ export function removeTodo(projectId, todoId) {
 }
 
 export function addProject(name) {
-	state.projects.push(projectFactory(name, [], null));
+	const newProject = projectFactory({ name, todos: [], id: null });
+	state.projects.push(newProject);
 	saveState();
+	return newProject.id;
 }
 
 export function renameProject(id, name) {

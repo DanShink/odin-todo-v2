@@ -91,3 +91,13 @@ footer p {
 	background-color: var(--header-footer-color);
 	color: var(--header-footer-text-color);
 }
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+form p {
+	align-self: center;
+}
