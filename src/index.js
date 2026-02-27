@@ -1,7 +1,12 @@
 import "./styles.css";
 import state from "./state-logic";
-import renderApp from "./renderApp";
-import { setupProjectsController } from "./controllers";
+import renderApp, { renderAddProject } from "./renderApp";
+import {
+	setupAddProjectsController,
+	setupProjectsController,
+} from "./controllers";
 
-setupProjectsController();
 renderApp(state);
+renderAddProject();
+setupProjectsController();
+setupAddProjectsController();

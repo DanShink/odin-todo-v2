@@ -1,5 +1,3 @@
-import { addProject } from "./state-mutations";
-
 export function renderProjects(state) {
 	return state.projects
 		.map(
@@ -25,30 +23,10 @@ export function renderTodos(state) {
 		.join("");
 }
 
-export default function renderApp(state) {
-	document.querySelector("#projects-container").innerHTML =
-		renderProjects(state);
-	document.querySelector("#todos-container").innerHTML = renderTodos(state);
-	const projectModal = document.querySelector("#add-project-popup");
-	projectModal.innerHTML = "";
-	projectModal.appendChild(renderAddProject(state));
-}
-
-export function renderAddProject(state) {
+export function renderAddProject() {
 	const form = document.createElement("form");
 	form.method = "dialog";
-	const dialog = document.querySelector("#add-project-popup");
-
-	form.addEventListener("submit", (e) => {
-		e.preventDefault();
-
-		const projectName = form.querySelector("#project-name");
-		if (!projectName.value) return;
-		state.selectedProjectId = addProject(projectName.value);
-		console.log(projectName.value);
-		renderApp(state);
-		dialog.close();
-	});
+	form.id = "add-project-form";
 
 	const nameContainer = document.createElement("div");
 	nameContainer.className = "field-container";
@@ -83,5 +61,13 @@ export function renderAddProject(state) {
 	form.appendChild(nameContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
-	return form;
+	const projectModal = document.querySelector("#add-project-popup");
+	projectModal.innerHTML = "";
+	projectModal.appendChild(form);
+}
+
+export default function renderApp(state) {
+	document.querySelector("#projects-container").innerHTML =
+		renderProjects(state);
+	document.querySelector("#todos-container").innerHTML = renderTodos(state);
 }
