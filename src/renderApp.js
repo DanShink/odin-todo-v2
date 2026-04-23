@@ -1,26 +1,33 @@
 export function renderProjects(state) {
-	return state.projects
-		.map(
-			(p) => `
-    <div class="project ${p.id === state.selectedProjectId ? "projectSelected" : ""}" data-id="${p.id}">
-      ${p.name}
-    </div>
-    `,
-		)
-		.join("");
+	const container = document.createDocumentFragment();
+	state.projects.forEach((p) => {
+		const projectDiv = document.createElement("div");
+		projectDiv.className = `project ${p.id === state.selectedProjectId ? "projectSelected" : ""}`;
+		projectDiv.dataset.id = p.id;
+		projectDiv.textContent = p.name;
+
+		container.appendChild(projectDiv);
+	});
+	return container;
 }
 
 export function renderTodos(state) {
-	return state.projects
-		.find((p) => p.id === state.selectedProjectId)
-		.todos.map(
-			(t) => `
-    <div data-id="${t.id}">
-      ${t.title}: ${t.description}
-    </div>
-    `,
-		)
-		.join("");
+	const container = document.createDocumentFragment();
+
+	const project = state.projects.find((p) => p.id === state.selectedProjectId);
+
+	if (!project) return container;
+
+	project.todos.forEach((t) => {
+		const div = document.createElement("div");
+		div.dataset.id = t.id;
+
+		div.textContent = `${t.title}: ${t.description}`;
+
+		container.appendChild(div);
+	});
+
+	return container;
 }
 
 export function renderAddProject() {
@@ -67,7 +74,12 @@ export function renderAddProject() {
 }
 
 export default function renderApp(state) {
-	document.querySelector("#projects-container").innerHTML =
-		renderProjects(state);
-	document.querySelector("#todos-container").innerHTML = renderTodos(state);
+	const projectsContainer = document.querySelector("#projects-container");
+	const todosContainer = document.querySelector("#todos-container");
+
+	projectsContainer.innerHTML = "";
+	todosContainer.innerHTML = "";
+
+	projectsContainer.appendChild(renderProjects(state));
+	todosContainer.appendChild(renderTodos(state));
 }
