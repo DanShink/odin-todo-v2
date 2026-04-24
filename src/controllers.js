@@ -30,3 +30,13 @@ export function setupAddProjectsController() {
 		dialog.close();
 	});
 }
+
+export function setupEditTodosController() {
+	const todos = document.getElementById("todos-container");
+	todos.addEventListener("click", (e) => {
+		const todo = e.target.closest(".edit");
+		if (!todo) return;
+		const todoId = todo.dataset.id;
+		if (!todoId) return;
+	});
+}

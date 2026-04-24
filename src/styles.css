@@ -57,6 +57,20 @@ header h1 {
 	color: var(--header-footer-color);
 }
 
+#todos-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 80%;
+}
+
+.todo {
+	border: 2px solid var(--header-footer-color);
+	border-radius: 8px;
+	padding: 10px;
+	color: var(--header-footer-color);
+}
+
 footer {
 	min-width: 100%;
 	display: flex;
