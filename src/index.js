@@ -11,4 +11,4 @@ renderApp(state);
 renderAddProject();
 setupProjectsController();
 setupAddProjectsController();
-// setupEditTodosController();
+setupEditTodosController();

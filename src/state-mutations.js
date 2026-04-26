@@ -10,7 +10,13 @@ function saveState() {
 }
 
 function findProject(id) {
-	return state.project.find((p) => p.id === id);
+	return state.projects.find((p) => p.id === id);
+}
+
+export function getTodo(projectId, todoId) {
+	const project = findProject(projectId);
+	if (!project) return undefined;
+	return project.todos.find((todo) => todo.id == todoId);
 }
 
 export function addTodo(projectId, todoData) {
@@ -24,6 +30,19 @@ export function removeTodo(projectId, todoId) {
 	const project = findProject(projectId);
 	if (!project) return;
 	project.todos = project.todos.filter((t) => t.id !== todoId);
+	saveState();
+}
+
+export function editTodo(projectId, todo) {
+	const project = findProject(projectId);
+	if (!project) return;
+	const newTodo = project.todos.findIndex((t) => t.id == todo.id);
+	if (newTodo < 0) return;
+	console.log(todo);
+	project.todos[newTodo] = {
+		...project.todos[newTodo],
+		...todo,
+	};
 	saveState();
 }
 

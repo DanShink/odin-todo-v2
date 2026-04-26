@@ -1,6 +1,11 @@
-import renderApp from "./renderApp";
+import renderApp, { renderEditTodo } from "./renderApp";
 import state from "./state-logic";
-import { setSelectedProject, addProject } from "./state-mutations";
+import {
+	setSelectedProject,
+	addProject,
+	getTodo,
+	editTodo,
+} from "./state-mutations";
 
 export function setupProjectsController() {
 	document
@@ -19,8 +24,6 @@ export function setupAddProjectsController() {
 	const form = document.getElementById("add-project-form");
 	const dialog = document.getElementById("add-project-popup");
 	form.addEventListener("submit", (e) => {
-		e.preventDefault();
-
 		const projectName = form.querySelector("#project-name");
 		if (!projectName.value) return;
 		state.selectedProjectId = addProject(projectName.value);
@@ -33,10 +36,29 @@ export function setupAddProjectsController() {
 
 export function setupEditTodosController() {
 	const todos = document.getElementById("todos-container");
+	const form = document.getElementById("edit-todo-form");
+	const dialog = document.getElementById("edit-todo-popup");
 	todos.addEventListener("click", (e) => {
-		const todo = e.target.closest(".edit");
-		if (!todo) return;
-		const todoId = todo.dataset.id;
+		const todoEdit = e.target.closest(".edit");
+		if (!todoEdit) return;
+		const todoId = todoEdit.dataset.id;
 		if (!todoId) return;
+		dialog.dataset.todoId = todoId;
+		const todo = getTodo(state.selectedProjectId, todoId);
+		if (!todo) return;
+		renderEditTodo(todo);
+		dialog.showModal();
+	});
+	form.addEventListener("submit", (e) => {
+		const todoTitle = form.querySelector("#edit-todo-name");
+		const todoDescription = form.querySelector("#edit-todo-description");
+		editTodo(state.selectedProjectId, {
+			id: dialog.dataset.todoId,
+			title: todoTitle.value,
+			description: todoDescription.value,
+		});
+		renderApp(state);
+		form.reset();
+		dialog.close();
 	});
 }

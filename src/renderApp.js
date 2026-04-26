@@ -18,8 +18,6 @@ export function renderTodos(state) {
 
 	if (!project) return container;
 
-	const todoDialog = document.getElementById("edit-todo-popup");
-
 	project.todos.forEach((t) => {
 		const div = document.createElement("div");
 		div.dataset.id = t.id;
@@ -33,13 +31,32 @@ export function renderTodos(state) {
 		edit.textContent = "Edit";
 		edit.className = "edit";
 		edit.dataset.id = t.id;
-		edit.command = "show-modal";
-		edit.commandForElement = todoDialog;
 		title.appendChild(edit);
 		div.appendChild(description);
 
 		container.appendChild(div);
 	});
+
+	const dialog = document.getElementById("edit-todo-popup");
+	const form = document.createElement("form");
+	form.method = "dialog";
+	form.id = "edit-todo-form";
+
+	const nameContainer = document.createElement("div");
+	nameContainer.className = "field-container";
+
+	const nameLabel = document.createElement("label");
+	nameLabel.setAttribute("for", "todo-name");
+	nameLabel.textContent = "Enter the name of the project:";
+
+	const nameInput = document.createElement("input");
+	nameInput.type = "text";
+	nameInput.name = "name";
+	nameInput.id = "project-name";
+	nameInput.required = true;
+
+	dialog.innerHTML = "";
+	dialog.appendChild(form);
 
 	return container;
 }
@@ -87,47 +104,65 @@ export function renderAddProject() {
 	projectModal.appendChild(form);
 }
 
-export function renderEditTodo() {
-	const form = document.createElement("form");
-	form.method = "dialog";
-	form.id = "edit-todo-form";
+export function renderEditTodo(todo) {
+	console.log(todo);
+	const form = document.getElementById("edit-todo-form");
+	form.innerHTML = "";
+	const titleContainer = document.createElement("div");
+	titleContainer.className = "field-container";
 
-	const nameContainer = document.createElement("div");
-	nameContainer.className = "field-container";
+	const titleLabel = document.createElement("label");
+	titleLabel.setAttribute("for", "edit-todo-title");
+	titleLabel.textContent = "Title:";
 
-	const nameLabel = document.createElement("label");
-	nameLabel.setAttribute("for", "todo-title");
-	nameLabel.textContent = "Enter the name of the project:";
+	const titleInput = document.createElement("input");
+	titleInput.type = "text";
+	titleInput.name = "title";
+	titleInput.id = "edit-todo-name";
+	titleInput.required = true;
+	titleInput.value = todo.title;
 
-	const nameInput = document.createElement("input");
-	nameInput.type = "text";
-	nameInput.name = "name";
-	nameInput.id = "project-name";
-	nameInput.required = true;
+	const descriptionContainer = document.createElement("div");
+	descriptionContainer.className = "field-container";
+
+	const descriptionLabel = document.createElement("label");
+	descriptionLabel.setAttribute("for", "edit-todo-description");
+	descriptionLabel.textContent = "Title:";
+
+	const descriptionInput = document.createElement("input");
+	descriptionInput.type = "text";
+	descriptionInput.name = "description";
+	descriptionInput.id = "edit-todo-description";
+	descriptionInput.required = true;
+	descriptionInput.value = todo.description;
 
 	const header = document.createElement("p");
-	header.textContent = "Add a Project";
+	header.textContent = "Edit Todo";
 
 	const createButton = document.createElement("button");
 	createButton.innerText = "Submit";
 	createButton.type = "submit";
 
 	const closeButton = document.createElement("button");
-	closeButton.setAttribute("commandfor", "add-project-popup");
+	closeButton.setAttribute("commandfor", "edit-todo-popup");
 	closeButton.setAttribute("command", "close");
 	closeButton.innerText = "Close";
 	closeButton.type = "button";
 
-	nameContainer.appendChild(nameLabel);
-	nameContainer.appendChild(nameInput);
+	titleContainer.appendChild(titleLabel);
+	titleContainer.appendChild(titleInput);
+
+	descriptionContainer.appendChild(descriptionLabel);
+	descriptionContainer.appendChild(descriptionInput);
 
 	form.appendChild(header);
-	form.appendChild(nameContainer);
+	form.appendChild(titleContainer);
+	form.appendChild(descriptionContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
-	const projectModal = document.querySelector("#add-project-popup");
-	projectModal.innerHTML = "";
-	projectModal.appendChild(form);
+	const editTodoModal = document.getElementById("edit-todo-popup");
+	editTodoModal.innerHTML = "";
+	editTodoModal.appendChild(form);
 }
 
 export default function renderApp(state) {
