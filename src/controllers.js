@@ -36,7 +36,6 @@ export function setupAddProjectsController() {
 
 export function setupEditTodosController() {
 	const todos = document.getElementById("todos-container");
-	const form = document.getElementById("edit-todo-form");
 	const dialog = document.getElementById("edit-todo-popup");
 	todos.addEventListener("click", (e) => {
 		const todoEdit = e.target.closest(".edit");
@@ -49,7 +48,8 @@ export function setupEditTodosController() {
 		renderEditTodo(todo);
 		dialog.showModal();
 	});
-	form.addEventListener("submit", (e) => {
+	dialog.addEventListener("submit", (e) => {
+		const form = document.getElementById("edit-todo-form");
 		const todoTitle = form.querySelector("#edit-todo-name");
 		const todoDescription = form.querySelector("#edit-todo-description");
 		editTodo(state.selectedProjectId, {
