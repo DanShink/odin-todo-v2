@@ -30,8 +30,13 @@ export function renderTodos(state) {
 		const edit = document.createElement("button");
 		edit.textContent = "Edit";
 		edit.className = "edit";
-		edit.dataset.id = t.id;
+		edit.dataset.todoId = t.id;
+		const deleteButton = document.createElement("button");
+		deleteButton.textContent = "Delete";
+		deleteButton.className = "delete";
+		deleteButton.dataset.todoId = t.id;
 		title.appendChild(edit);
+		title.appendChild(deleteButton);
 		div.appendChild(description);
 
 		container.appendChild(div);
@@ -41,19 +46,6 @@ export function renderTodos(state) {
 	const form = document.createElement("form");
 	form.method = "dialog";
 	form.id = "edit-todo-form";
-
-	const nameContainer = document.createElement("div");
-	nameContainer.className = "field-container";
-
-	const nameLabel = document.createElement("label");
-	nameLabel.setAttribute("for", "todo-name");
-	nameLabel.textContent = "Enter the name of the project:";
-
-	const nameInput = document.createElement("input");
-	nameInput.type = "text";
-	nameInput.name = "name";
-	nameInput.id = "project-name";
-	nameInput.required = true;
 
 	dialog.innerHTML = "";
 	dialog.appendChild(form);
@@ -104,6 +96,66 @@ export function renderAddProject() {
 	projectModal.appendChild(form);
 }
 
+export function renderAddTodo() {
+	const form = document.createElement("form");
+	form.method = "dialog";
+	form.id = "add-todo-form";
+
+	const titleContainer = document.createElement("div");
+	titleContainer.className = "field-container";
+
+	const titleLabel = document.createElement("label");
+	titleLabel.setAttribute("for", "add-todo-title");
+	titleLabel.textContent = "Title:";
+
+	const titleInput = document.createElement("input");
+	titleInput.type = "text";
+	titleInput.name = "name";
+	titleInput.id = "add-todo-title";
+	titleInput.required = true;
+
+	const descriptionContainer = document.createElement("div");
+	descriptionContainer.className = "field-container";
+
+	const descriptionLabel = document.createElement("label");
+	descriptionLabel.setAttribute("for", "add-todo-description");
+	descriptionLabel.textContent = "Description:";
+
+	const descriptionInput = document.createElement("input");
+	descriptionInput.type = "text";
+	descriptionInput.name = "description";
+	descriptionInput.id = "add-todo-description";
+	descriptionInput.required = true;
+
+	const header = document.createElement("p");
+	header.textContent = "Add a Todo";
+
+	const createButton = document.createElement("button");
+	createButton.innerText = "Submit";
+	createButton.type = "submit";
+
+	const closeButton = document.createElement("button");
+	closeButton.setAttribute("commandfor", "add-todo-popup");
+	closeButton.setAttribute("command", "close");
+	closeButton.innerText = "Close";
+	closeButton.type = "button";
+
+	titleContainer.appendChild(titleLabel);
+	titleContainer.appendChild(titleInput);
+
+	descriptionContainer.appendChild(descriptionLabel);
+	descriptionContainer.appendChild(descriptionInput);
+
+	form.appendChild(header);
+	form.appendChild(titleContainer);
+	form.appendChild(descriptionContainer);
+	form.appendChild(createButton);
+	form.appendChild(closeButton);
+	const addTodoModal = document.querySelector("#add-todo-popup");
+	addTodoModal.innerHTML = "";
+	addTodoModal.appendChild(form);
+}
+
 export function renderEditTodo(todo) {
 	console.log(todo);
 	const form = document.getElementById("edit-todo-form");
@@ -127,7 +179,7 @@ export function renderEditTodo(todo) {
 
 	const descriptionLabel = document.createElement("label");
 	descriptionLabel.setAttribute("for", "edit-todo-description");
-	descriptionLabel.textContent = "Title:";
+	descriptionLabel.textContent = "Description:";
 
 	const descriptionInput = document.createElement("input");
 	descriptionInput.type = "text";

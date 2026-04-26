@@ -50,7 +50,7 @@ const exampleData = {
 	],
 };
 
-function todoFactory({
+export function todoFactory({
 	title,
 	description,
 	dueDate,

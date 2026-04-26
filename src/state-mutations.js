@@ -1,4 +1,4 @@
-import state, { projectFactory } from "./state-logic";
+import state, { projectFactory, todoFactory } from "./state-logic";
 
 export function printState() {
 	console.log(state);
@@ -29,7 +29,7 @@ export function addTodo(projectId, todoData) {
 export function removeTodo(projectId, todoId) {
 	const project = findProject(projectId);
 	if (!project) return;
-	project.todos = project.todos.filter((t) => t.id !== todoId);
+	project.todos = project.todos.filter((t) => t.id != todoId);
 	saveState();
 }
 
