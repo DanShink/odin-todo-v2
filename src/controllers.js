@@ -42,10 +42,13 @@ export function setupAddTodosController() {
 	form.addEventListener("submit", (e) => {
 		const todoTitle = form.querySelector("#add-todo-title");
 		const todoDescription = form.querySelector("#add-todo-description");
+		const todoDueDate = form.querySelector("#add-todo-due-date");
 		if (!todoTitle.value || !todoDescription.value) return;
+		console.log(todoDueDate.value);
 		addTodo(state.selectedProjectId, {
 			title: todoTitle.value,
 			description: todoDescription.value,
+			dueDate: todoDueDate.value,
 		});
 		renderApp(state);
 		form.reset();
@@ -71,10 +74,12 @@ export function setupEditTodosController() {
 		const form = document.getElementById("edit-todo-form");
 		const todoTitle = form.querySelector("#edit-todo-name");
 		const todoDescription = form.querySelector("#edit-todo-description");
+		const todoDueDate = form.querySelector("#edit-todo-due-date");
 		editTodo(state.selectedProjectId, {
 			id: dialog.dataset.todoId,
 			title: todoTitle.value,
 			description: todoDescription.value,
+			dueDate: todoDueDate.value,
 		});
 		renderApp(state);
 		form.reset();

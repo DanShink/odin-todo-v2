@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function renderProjects(state) {
 	const container = document.createDocumentFragment();
 	state.projects.forEach((p) => {
@@ -27,6 +29,9 @@ export function renderTodos(state) {
 		div.appendChild(title);
 		const description = document.createElement("p");
 		description.textContent = t.description;
+		const dueDate = document.createElement("p");
+		console.log(t);
+		dueDate.textContent = format(new Date(t.dueDate), "MM-dd-yyyy HH:mm");
 		const edit = document.createElement("button");
 		edit.textContent = "Edit";
 		edit.className = "edit";
@@ -38,6 +43,7 @@ export function renderTodos(state) {
 		title.appendChild(edit);
 		title.appendChild(deleteButton);
 		div.appendChild(description);
+		div.appendChild(dueDate);
 
 		container.appendChild(div);
 	});
@@ -127,6 +133,19 @@ export function renderAddTodo() {
 	descriptionInput.id = "add-todo-description";
 	descriptionInput.required = true;
 
+	const dueDateContainer = document.createElement("div");
+	dueDateContainer.className = "field-container";
+
+	const dueDateLabel = document.createElement("label");
+	dueDateLabel.setAttribute("for", "add-todo-due-date");
+	dueDateLabel.textContent = "Due Date:";
+
+	const dueDateInput = document.createElement("input");
+	dueDateInput.type = "datetime-local";
+	dueDateInput.name = "dueDate";
+	dueDateInput.id = "add-todo-due-date";
+	dueDateInput.required = false;
+
 	const header = document.createElement("p");
 	header.textContent = "Add a Todo";
 
@@ -146,9 +165,13 @@ export function renderAddTodo() {
 	descriptionContainer.appendChild(descriptionLabel);
 	descriptionContainer.appendChild(descriptionInput);
 
+	dueDateContainer.appendChild(dueDateLabel);
+	dueDateContainer.appendChild(dueDateInput);
+
 	form.appendChild(header);
 	form.appendChild(titleContainer);
 	form.appendChild(descriptionContainer);
+	form.appendChild(dueDateContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
 	const addTodoModal = document.querySelector("#add-todo-popup");
@@ -188,6 +211,20 @@ export function renderEditTodo(todo) {
 	descriptionInput.required = true;
 	descriptionInput.value = todo.description;
 
+	const dueDateContainer = document.createElement("div");
+	dueDateContainer.className = "field-container";
+
+	const dueDateLabel = document.createElement("label");
+	dueDateLabel.setAttribute("for", "edit-todo-due-date");
+	dueDateLabel.textContent = "Due Date:";
+
+	const dueDateInput = document.createElement("input");
+	dueDateInput.type = "datetime-local";
+	dueDateInput.name = "description";
+	dueDateInput.id = "edit-todo-due-date";
+	dueDateInput.required = false;
+	dueDateInput.value = todo.dueDate;
+
 	const header = document.createElement("p");
 	header.textContent = "Edit Todo";
 
@@ -207,9 +244,13 @@ export function renderEditTodo(todo) {
 	descriptionContainer.appendChild(descriptionLabel);
 	descriptionContainer.appendChild(descriptionInput);
 
+	dueDateContainer.appendChild(dueDateLabel);
+	dueDateContainer.appendChild(dueDateInput);
+
 	form.appendChild(header);
 	form.appendChild(titleContainer);
 	form.appendChild(descriptionContainer);
+	form.appendChild(dueDateContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
 	const editTodoModal = document.getElementById("edit-todo-popup");

@@ -10,7 +10,7 @@ const exampleData = {
 				{
 					title: "Todo 1",
 					description: "This is todo number 1. Hip Hip!",
-					dueDate: "01/01/2099",
+					dueDate: "2099-12-02T08:30",
 					priority: priority.LOW,
 					complete: false,
 					id: 1,
@@ -18,7 +18,7 @@ const exampleData = {
 				{
 					title: "Todo 2",
 					description: "This is todo number 2. Hurray!",
-					dueDate: "01/01/3099",
+					dueDate: "3099-01-01T19:45",
 					priority: priority.MEDIUM,
 					complete: false,
 					id: 2,
@@ -32,7 +32,7 @@ const exampleData = {
 				{
 					title: "Todo 3",
 					description: "This is todo number 3. Hip Hip!",
-					dueDate: "01/01/2099",
+					dueDate: "01/01/2099T08:30",
 					priority: priority.HIGH,
 					complete: true,
 					id: 1,
@@ -40,7 +40,7 @@ const exampleData = {
 				{
 					title: "Todo 4",
 					description: "This is todo number 3. Hurray!",
-					dueDate: "01/01/3099",
+					dueDate: "01/01/3099T09:10",
 					priority: priority.URGENT,
 					complete: false,
 					id: 2,
