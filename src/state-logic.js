@@ -32,7 +32,7 @@ const exampleData = {
 				{
 					title: "Todo 3",
 					description: "This is todo number 3. Hip Hip!",
-					dueDate: "01/01/2099T08:30",
+					dueDate: "2099-01-01T08:30",
 					priority: priority.HIGH,
 					complete: true,
 					id: 1,
@@ -40,7 +40,7 @@ const exampleData = {
 				{
 					title: "Todo 4",
 					description: "This is todo number 3. Hurray!",
-					dueDate: "01/01/3099T09:10",
+					dueDate: "3099-02-02T09:10",
 					priority: priority.URGENT,
 					complete: false,
 					id: 2,
