@@ -224,7 +224,6 @@ export function renderAddTodo() {
 }
 
 export function renderEditTodo(todo) {
-	console.log(todo);
 	const form = document.getElementById("edit-todo-form");
 	form.innerHTML = "";
 	const titleContainer = document.createElement("div");

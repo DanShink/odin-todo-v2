@@ -30,7 +30,6 @@ export function setupAddProjectsController() {
 		const projectName = form.querySelector("#project-name");
 		if (!projectName.value) return;
 		state.selectedProjectId = addProject(projectName.value);
-		console.log(projectName.value);
 		renderApp(state);
 		form.reset();
 		dialog.close();
@@ -58,7 +57,6 @@ export function setupAddTodosController() {
 		const todoDueDate = form.querySelector("#add-todo-due-date");
 		const todoPriority = form.querySelector("#add-todo-priority");
 		if (!todoTitle.value || !todoDescription.value) return;
-		console.log(todoDueDate.value);
 		addTodo(state.selectedProjectId, {
 			title: todoTitle.value,
 			description: todoDescription.value,
