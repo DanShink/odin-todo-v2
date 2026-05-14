@@ -3,6 +3,7 @@ import state from "./state-logic";
 import {
 	setSelectedProject,
 	addProject,
+	removeProject,
 	getTodo,
 	editTodo,
 	removeTodo,
@@ -36,6 +37,18 @@ export function setupAddProjectsController() {
 	});
 }
 
+export function setupDeleteProjectController() {
+	const projectsContainer = document.getElementById("projects-container");
+	projectsContainer.addEventListener("click", (e) => {
+		const projectDelete = e.target.closest(".delete");
+		if (!projectDelete) return;
+		const projectId = projectDelete.dataset.projectId;
+		if (!projectId) return;
+		removeProject(projectId);
+		renderApp(state);
+	});
+}
+
 export function setupAddTodosController() {
 	const form = document.getElementById("add-todo-form");
 	const dialog = document.getElementById("add-todo-popup");
@@ -43,12 +56,14 @@ export function setupAddTodosController() {
 		const todoTitle = form.querySelector("#add-todo-title");
 		const todoDescription = form.querySelector("#add-todo-description");
 		const todoDueDate = form.querySelector("#add-todo-due-date");
+		const todoPriority = form.querySelector("#add-todo-priority");
 		if (!todoTitle.value || !todoDescription.value) return;
 		console.log(todoDueDate.value);
 		addTodo(state.selectedProjectId, {
 			title: todoTitle.value,
 			description: todoDescription.value,
 			dueDate: todoDueDate.value,
+			priority: todoPriority.value,
 		});
 		renderApp(state);
 		form.reset();
@@ -75,11 +90,13 @@ export function setupEditTodosController() {
 		const todoTitle = form.querySelector("#edit-todo-name");
 		const todoDescription = form.querySelector("#edit-todo-description");
 		const todoDueDate = form.querySelector("#edit-todo-due-date");
+		const todoPriority = form.querySelector("#edit-todo-priority");
 		editTodo(state.selectedProjectId, {
 			id: dialog.dataset.todoId,
 			title: todoTitle.value,
 			description: todoDescription.value,
 			dueDate: todoDueDate.value,
+			priority: todoPriority.value,
 		});
 		renderApp(state);
 		form.reset();

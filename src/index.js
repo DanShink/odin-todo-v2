@@ -4,6 +4,7 @@ import renderApp, { renderAddProject, renderAddTodo } from "./renderApp";
 import {
 	setupAddProjectsController,
 	setupAddTodosController,
+	setupDeleteProjectController,
 	setupDeleteTodosController,
 	setupEditTodosController,
 	setupProjectsController,
@@ -14,6 +15,7 @@ renderAddProject();
 renderAddTodo();
 setupProjectsController();
 setupAddProjectsController();
+setupDeleteProjectController();
 setupAddTodosController();
 setupEditTodosController();
 setupDeleteTodosController();

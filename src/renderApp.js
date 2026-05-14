@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import priority from "./priority";
 
 export function renderProjects(state) {
 	const container = document.createDocumentFragment();
@@ -7,6 +8,11 @@ export function renderProjects(state) {
 		projectDiv.className = `project ${p.id === state.selectedProjectId ? "projectSelected" : ""}`;
 		projectDiv.dataset.id = p.id;
 		projectDiv.textContent = p.name;
+		const button = document.createElement("button");
+		button.textContent = "Delete";
+		button.className = "delete";
+		button.dataset.projectId = p.id;
+		projectDiv.appendChild(button);
 
 		container.appendChild(projectDiv);
 	});
@@ -30,8 +36,13 @@ export function renderTodos(state) {
 		const description = document.createElement("p");
 		description.textContent = t.description;
 		const dueDate = document.createElement("p");
-		console.log(t);
-		dueDate.textContent = format(new Date(t.dueDate), "MM-dd-yyyy HH:mm");
+		const dueDateSafe =
+			t.dueDate === ""
+				? "Invalid Time"
+				: format(new Date(t.dueDate), "MM-dd-yyyy HH:mm");
+		dueDate.textContent = dueDateSafe;
+		const todoPriority = document.createElement("P");
+		todoPriority.textContent = priority[t.priority];
 		const edit = document.createElement("button");
 		edit.textContent = "Edit";
 		edit.className = "edit";
@@ -44,6 +55,7 @@ export function renderTodos(state) {
 		title.appendChild(deleteButton);
 		div.appendChild(description);
 		div.appendChild(dueDate);
+		div.appendChild(todoPriority);
 
 		container.appendChild(div);
 	});
@@ -102,6 +114,21 @@ export function renderAddProject() {
 	projectModal.appendChild(form);
 }
 
+function renderPriority(priority, index) {
+	const option = document.createElement("option");
+	option.value = index;
+	option.innerText = priority;
+	return option;
+}
+
+function renderPriorityOptions() {
+	const result = document.createDocumentFragment();
+	priority.forEach((p, index) => {
+		result.appendChild(renderPriority(p, index));
+	});
+	return result;
+}
+
 export function renderAddTodo() {
 	const form = document.createElement("form");
 	form.method = "dialog";
@@ -146,6 +173,19 @@ export function renderAddTodo() {
 	dueDateInput.id = "add-todo-due-date";
 	dueDateInput.required = false;
 
+	const priorityContainer = document.createElement("div");
+	priorityContainer.className = "field-container";
+
+	const priorityLabel = document.createElement("label");
+	priorityLabel.setAttribute("for", "add-todo-priority");
+	priorityLabel.textContent = "Priority:";
+
+	const priorityInput = document.createElement("select");
+	priorityInput.name = "priority";
+	priorityInput.id = "add-todo-priority";
+	priorityInput.required = true;
+	priorityInput.appendChild(renderPriorityOptions());
+
 	const header = document.createElement("p");
 	header.textContent = "Add a Todo";
 
@@ -168,10 +208,14 @@ export function renderAddTodo() {
 	dueDateContainer.appendChild(dueDateLabel);
 	dueDateContainer.appendChild(dueDateInput);
 
+	priorityContainer.appendChild(priorityLabel);
+	priorityContainer.appendChild(priorityInput);
+
 	form.appendChild(header);
 	form.appendChild(titleContainer);
 	form.appendChild(descriptionContainer);
 	form.appendChild(dueDateContainer);
+	form.appendChild(priorityContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
 	const addTodoModal = document.querySelector("#add-todo-popup");
@@ -225,6 +269,19 @@ export function renderEditTodo(todo) {
 	dueDateInput.required = false;
 	dueDateInput.value = todo.dueDate;
 
+	const priorityContainer = document.createElement("div");
+	priorityContainer.className = "field-container";
+
+	const priorityLabel = document.createElement("label");
+	priorityLabel.setAttribute("for", "edit-todo-priority");
+	priorityLabel.textContent = "Priority:";
+
+	const priorityInput = document.createElement("select");
+	priorityInput.name = "priority";
+	priorityInput.id = "edit-todo-priority";
+	priorityInput.required = true;
+	priorityInput.appendChild(renderPriorityOptions());
+
 	const header = document.createElement("p");
 	header.textContent = "Edit Todo";
 
@@ -247,10 +304,14 @@ export function renderEditTodo(todo) {
 	dueDateContainer.appendChild(dueDateLabel);
 	dueDateContainer.appendChild(dueDateInput);
 
+	priorityContainer.appendChild(priorityLabel);
+	priorityContainer.appendChild(priorityInput);
+
 	form.appendChild(header);
 	form.appendChild(titleContainer);
 	form.appendChild(descriptionContainer);
 	form.appendChild(dueDateContainer);
+	form.appendChild(priorityContainer);
 	form.appendChild(createButton);
 	form.appendChild(closeButton);
 	const editTodoModal = document.getElementById("edit-todo-popup");

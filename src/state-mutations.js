@@ -38,7 +38,6 @@ export function editTodo(projectId, todo) {
 	if (!project) return;
 	const newTodo = project.todos.findIndex((t) => t.id == todo.id);
 	if (newTodo < 0) return;
-	console.log(todo);
 	project.todos[newTodo] = {
 		...project.todos[newTodo],
 		...todo,
@@ -62,6 +61,9 @@ export function renameProject(id, name) {
 
 export function removeProject(id) {
 	state.projects = state.projects.filter((p) => p.id !== id);
+	if (state.selectedProjectId === id) {
+		state.selectedProjectId = state.projects[0]?.id || "";
+	}
 	saveState();
 }
 

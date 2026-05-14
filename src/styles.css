@@ -115,3 +115,23 @@ form {
 form p {
 	align-self: center;
 }
+
+button {
+	background-color: var(--header-footer-color);
+	color: var(--header-footer-text-color);
+	border-radius: 8px;
+	border: 1px solid var(--background-color);
+}
+
+button:hover {
+	background-color: var(--header-footer-text-color);
+	color: var(--header-footer-color);
+	cursor: pointer;
+	border: 1px solid gray;
+}
+
+select {
+	background-color: white;
+	border-radius: 8px;
+	border: 1px solid gray;
+}
